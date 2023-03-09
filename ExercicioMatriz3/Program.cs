@@ -7,7 +7,8 @@ internal class Program
     {
         int[,] matriz1 = new int[3, 3];
         int[,] matrizcop = new int[3, 3];
-     
+        Random aleatorio = new Random();
+
         matriz1 = LerMatriz(matriz1);
 
         matrizcop = Inverter(matriz1);
@@ -17,42 +18,43 @@ internal class Program
         Console.WriteLine("  Invertida");
         ImprimirMatriz(matrizcop);
 
-        void ImprimirMatriz (int[,] matriz)
+        //Realiza a impressão da matriz
+        void ImprimirMatriz(int[,] matriz)
         {
-            for (int linha = 0; linha <= 2; linha++)
+            for (int linha = 0; linha < matriz.GetLength(0); linha++)
             {
-                for (int coluna = 0; coluna <= 2; coluna++)
+                for (int coluna = 0; coluna < matriz.GetLength(1); coluna++)
                 {
-                    Console.Write($"  {matriz[linha,coluna]}  ");
+                    Console.Write($"  {matriz[linha, coluna]}  ");
                 }
                 Console.WriteLine();
             }
         }
-        
+
+        //Inverte os valores de uma matriz para outra
         int[,] Inverter(int[,] Matriz)
         {
-            int[,] matrizinvertida = new int[Matriz.Length, Matriz.Length];
+            int[,] matrizinvertida = new int[Matriz.GetLength(0), Matriz.GetLength(1)];
 
-            for(int linha = 2; linha >= 0; linha--)
+            for (int linha = Matriz.GetLength(0)-1; linha >= 0; linha--)
             {
-                for(int coluna = 2; coluna >= 0; coluna--)
+                for (int coluna = Matriz.GetLength(1)-1; coluna >= 0; coluna--)
                 {
-                    int indice = 2;
+                    int indice = Matriz.GetLength(0)-1;
                     matrizinvertida[indice - linha, indice - coluna] = Matriz[linha, coluna];
                 }
             }
             return matrizinvertida;
         }
 
+        //Grava valores em uma matriz de forma automatica e pseudo aleatória
         int[,] LerMatriz(int[,] Matriz)
         {
-            for (int linha = 0; linha < 3; linha++)
+            for (int linha = 0; linha < Matriz.GetLength(0); linha++)
             {
-                for (int coluna = 0; coluna < 3; coluna++)
+                for (int coluna = 0; coluna < Matriz.GetLength(1); coluna++)
                 {
-                    Console.Write($"Informe o valor {coluna+1}, da linha {linha+1}: ");
-                    Matriz[linha, coluna] = int.Parse(Console.ReadLine());
-                    Console.Clear();
+                    Matriz[linha, coluna] = aleatorio.Next(10);
                 }
             }
             return Matriz;
